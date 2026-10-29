@@ -23,10 +23,14 @@ data.json         # distribuições, histograma e totais que o site lê (não ca
 vendor/           # D3, GSAP + ScrollTrigger e KaTeX servidos localmente (sem depender de CDN)
 vercel.json       # configuração de deploy estático
 scripts/
-  analyze.py      # testes do último dígito e de Benford (2º dígito)
-  fingerprint.py  # teste de "fingerprint" (enchimento de urna, estilo Klimek)
-requirements.txt  # numpy, scipy
+  analyze.py        # testes do último dígito e de Benford (2º dígito)
+  fingerprint.py    # teste de "fingerprint" (enchimento de urna, estilo Klimek)
+  requirements.txt  # numpy, scipy (dependências da análise)
 ```
+
+> `requirements.txt` fica em `scripts/` de propósito: na raiz, a Vercel
+> detectaria o projeto como uma aplicação Python e tentaria buildá-lo. Como o
+> site é estático, mantê-lo fora da raiz garante o deploy estático.
 
 O site é **100% estático**: não há build, servidor nem API. As bibliotecas
 estão em `vendor/` para que a página funcione mesmo se uma CDN cair — o que
@@ -69,7 +73,7 @@ resultados abaixo.
 
 1. Instale as dependências:
    ```bash
-   pip install -r requirements.txt
+   pip install -r scripts/requirements.txt
    ```
 2. Baixe o arquivo oficial do TSE (votação por seção, ~155 MB zipado) e extraia:
    - Página: https://dadosabertos.tse.jus.br/dataset/resultados-2026
