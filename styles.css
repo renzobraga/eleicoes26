@@ -328,6 +328,39 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 .formula .katex { font-size: clamp(1.05rem, 3.4vw, 1.5rem); }
 .formula__cap { margin-top: 1rem; font-size: .74rem; color: var(--ink-faint); letter-spacing: .04em; line-height: 1.5; }
+.formula__plain {
+  margin-top: 1.1rem; padding-top: 1rem; border-top: 1px solid var(--line);
+  font-size: .98rem; line-height: 1.6; color: var(--ink-dim); max-width: 70ch;
+}
+.formula__plain b { color: var(--ink); }
+
+/* ---------- "como ler" callout (acento ciano, distinto das fórmulas) ---------- */
+.howto {
+  margin: 1.6rem 0; padding: 1.3rem 1.4rem;
+  background: var(--cyan-soft); border: 1px solid color-mix(in srgb, var(--cyan) 32%, transparent);
+  border-left: 3px solid var(--cyan); border-radius: var(--radius);
+}
+.howto__tag { color: var(--cyan); font-size: .7rem; letter-spacing: .18em; margin-bottom: .8rem; }
+.howto__list { margin: 0; padding-left: 1.15rem; display: grid; gap: .5rem; }
+.howto__list li { font-size: .98rem; line-height: 1.55; color: var(--ink); }
+.howto__list li::marker { color: var(--cyan); }
+.howto__list b { color: var(--ink); font-weight: 700; }
+
+/* ---------- legenda dos gráficos ---------- */
+.chart-legend { display: flex; flex-wrap: wrap; gap: .5rem 1.6rem; margin: .2rem 0 .4rem; font-size: .76rem; color: var(--ink-dim); letter-spacing: .02em; }
+.chart-legend__item { display: inline-flex; align-items: center; gap: .55rem; }
+.lg-bar { width: 14px; height: 14px; border-radius: 2px; background: var(--amber); display: inline-block; }
+.lg-line { width: 22px; height: 0; border-top: 2px dashed var(--ink); display: inline-block; }
+
+/* ---------- tradução dos números (p-valor em português) ---------- */
+.stat-plain {
+  margin-top: 1.4rem; padding: 1.1rem 1.3rem;
+  background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--amber);
+  border-radius: var(--radius); font-size: 1rem; line-height: 1.6; color: var(--ink-dim); max-width: 72ch;
+}
+.stat-plain b { color: var(--ink); }
+
+.sim__curve-cap { margin: .2rem 0 1.4rem; }
 
 .charts-2 { display: grid; gap: 1.6rem; margin: 2rem 0 1.4rem; }
 @media (min-width: 820px) { .charts-2 { grid-template-columns: 1fr 1fr; } }
@@ -346,6 +379,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .bar-rect { fill: var(--c, var(--amber)); }
 .axis-line { stroke: var(--line-2); stroke-width: 1; }
 .axis-text { fill: var(--ink-faint); font-family: var(--mono); font-size: 10px; }
+.axis-title { fill: var(--ink-dim); font-family: var(--mono); font-size: 10.5px; letter-spacing: .04em; }
 .exp-line { stroke: var(--ink); stroke-width: 1.5; stroke-dasharray: 4 3; fill: none; opacity: .85; }
 .exp-dot { fill: var(--ink); }
 

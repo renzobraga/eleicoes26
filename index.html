@@ -145,11 +145,37 @@
 
     <figure class="formula" data-katex="\chi^2=\sum_{i=0}^{9}\frac{(O_i-E_i)^2}{E_i}, \qquad E_i=\frac{n}{10}">
       <figcaption class="formula__cap mono">χ² com 9 graus de liberdade · O = observado, E = esperado · só seções com ≥10 votos</figcaption>
+      <p class="formula__plain">
+        <b>Em português:</b> para cada dígito, medimos o quanto ele apareceu <em>a mais ou a menos</em>
+        do que o esperado, e somamos tudo. Esse total é o <b>χ² (qui-quadrado)</b>. Quanto menor,
+        mais os números se parecem com o puro acaso de uma apuração honesta.
+      </p>
     </figure>
+
+    <div class="howto">
+      <p class="howto__tag mono">COMO LER OS GRÁFICOS ABAIXO</p>
+      <ul class="howto__list">
+        <li>Cada <b>barra</b> conta quantas seções terminaram a contagem naquele dígito (0 a 9).</li>
+        <li>A <b>linha tracejada</b> é o que uma apuração honesta produziria: tudo no mesmo nível.</li>
+        <li>Barras <b>rentes à linha</b>, sem uma mais alta ou mais baixa que as outras, = sem sinal de adulteração.</li>
+      </ul>
+    </div>
+
+    <div class="chart-legend mono" aria-hidden="true">
+      <span class="chart-legend__item"><i class="lg-bar"></i> barras: o que a urna registrou (observado)</span>
+      <span class="chart-legend__item"><i class="lg-line"></i> linha tracejada: o esperado numa apuração honesta</span>
+    </div>
 
     <div class="charts-2" id="lastDigitCharts"></div>
 
     <div class="verdict-grid" id="t1Verdict"></div>
+
+    <p class="stat-plain">
+      O número que decide é o <b>p</b>, que vai de 0 a 1: é a chance de um padrão assim aparecer
+      numa eleição honesta. <b>Lula: p = 0,84</b> (84%). <b>Flávio: p = 0,19</b> (19%). Os dois são
+      altos o bastante para <b>passar</b> — só reprovaria se o p fosse quase zero, indicando um padrão
+      que o acaso dificilmente criaria.
+    </p>
 
     <p class="test__read">
       <strong>Leitura:</strong> os dois passam limpo. Dígitos de 0 a 9 distribuídos de forma plana,
@@ -174,11 +200,35 @@
 
     <figure class="formula" data-katex="P(d)=\sum_{k=1}^{9}\log_{10}\!\left(1+\frac{1}{10k+d}\right)">
       <figcaption class="formula__cap mono">distribuição esperada do 2º dígito d ∈ {0..9} pela Lei de Benford</figcaption>
+      <p class="formula__plain">
+        <b>Em português:</b> essa fórmula diz qual frequência cada 2º dígito “deveria” ter, segundo a
+        Lei de Benford. É a <b>linha tracejada</b> dos gráficos. Comparamos com o que apareceu de verdade.
+      </p>
     </figure>
+
+    <div class="howto">
+      <p class="howto__tag mono">COMO LER OS GRÁFICOS ABAIXO</p>
+      <ul class="howto__list">
+        <li>Cada <b>barra</b> é a frequência real do 2º dígito das contagens.</li>
+        <li>A <b>linha tracejada</b> é o que a Lei de Benford prevê.</li>
+        <li>Aqui as barras <b>fogem</b> da linha — por isso o teste “reprova”. Mas segure a conclusão: veja a seção logo abaixo.</li>
+      </ul>
+    </div>
+
+    <div class="chart-legend mono" aria-hidden="true">
+      <span class="chart-legend__item"><i class="lg-bar"></i> barras: frequência real do 2º dígito</span>
+      <span class="chart-legend__item"><i class="lg-line"></i> linha tracejada: o que Benford prevê</span>
+    </div>
 
     <div class="charts-2" id="benfordCharts"></div>
 
     <div class="verdict-grid" id="t2Verdict"></div>
+
+    <p class="stat-plain">
+      Aqui o <b>p ≈ 0</b>: as barras fogem do esperado, o que normalmente seria um alerta. O problema
+      é que o teste reprovou <b>os dois candidatos</b> — inclusive o Flávio, que contesta o resultado.
+      Um “detector de fraude” que acusa os dois lados ao mesmo tempo não está detectando fraude.
+    </p>
 
     <div class="punch">
       <p class="punch__kicker mono">A SACADA</p>
@@ -213,10 +263,22 @@
 
     <div class="fp-stats" id="fpStats"></div>
 
+    <div class="howto">
+      <p class="howto__tag mono">COMO LER O GRÁFICO ABAIXO</p>
+      <ul class="howto__list">
+        <li>No eixo de baixo: <b>quantos % dos votos o vencedor teve em cada seção</b> (de 30% a 100%).</li>
+        <li>A altura de cada barra: <b>quantas seções</b> tiveram aquele percentual.</li>
+        <li>O normal é um <b>sino</b> no meio (a maioria das seções entre 50% e 70%).</li>
+        <li>Fraude de enchimento criaria uma <b>montanha na ponta direita</b>, perto de 100% — a barra laranja.
+            Repare que ela está <b>quase vazia</b>.</li>
+      </ul>
+    </div>
+
     <figure class="fp-figure">
       <div class="fp-chart" id="fpHistogram" aria-label="Distribuição do percentual do vencedor por seção"></div>
       <figcaption class="formula__cap mono">
-        Distribuição do % do vencedor por seção — curva em sino centrada em ~60%. Sem “dedos”, sem pico em 100%.
+        Eixo horizontal: % que o vencedor teve na seção. Eixo vertical: nº de seções.
+        Curva em sino centrada em ~60%. A barra laranja (95–100%) é a “zona suspeita” — e está vazia.
       </figcaption>
     </figure>
 
@@ -242,12 +304,26 @@
     </p>
 
     <figure class="formula" data-katex="\sigma_{\text{total}}=\sqrt{\sigma_{\text{amostral}}^2+\sigma_{\text{desenho}}^2+\sigma_{\text{casa}}^2+\sigma_{\text{tardia}}^2}\;,\qquad z=\frac{\text{surpresa}}{\sigma_{\text{total}}}">
+      <p class="formula__plain">
+        <b>Em português:</b> juntamos os quatro erros de uma pesquisa num só número, o <b>σ (sigma)</b>
+        — é o “tamanho normal do erro”. O <b>z</b> diz quantos σ a surpresa de 2,79 pontos representa.
+        <b>z pequeno (perto de 1) = surpresa comum. z grande = surpresa rara.</b>
+      </p>
     </figure>
+
+    <div class="howto">
+      <p class="howto__tag mono">COMO USAR</p>
+      <ul class="howto__list">
+        <li>Arraste o <b>σ</b> ou toque num dos botões. O cálculo refaz na hora.</li>
+        <li>A <b>probabilidade</b> (“1 em quantas eleições”) aparece à direita. Quanto maior o número depois do “1 em”, mais raro.</li>
+        <li>Repare: só <b>diminuindo o σ</b> — fingindo que a pesquisa erra menos do que erra — é que a conta chega ao “1 em 190”. Com o erro real, é <b>1 em 3</b>.</li>
+      </ul>
+    </div>
 
     <div class="sim" id="sim">
       <div class="sim__controls">
         <label class="sim__label mono" for="sigmaRange">
-          Desvio-padrão do erro de pesquisa (σ, em pontos)
+          Desvio-padrão do erro de pesquisa (σ, em pontos) — arraste
         </label>
         <input class="sim__range" type="range" id="sigmaRange" min="0.8" max="3.2" step="0.01" value="2.68"
                aria-describedby="simReadout">
@@ -275,6 +351,10 @@
       </div>
 
       <div class="sim__curve" id="simCurve" aria-hidden="true"></div>
+      <p class="formula__cap mono sim__curve-cap">
+        A curva é o “leque” de resultados que uma pesquisa pode dar por acaso. A <span class="hl">área laranja</span>
+        é a chance de uma surpresa tão grande quanto a real. Área grande = comum; área minúscula = raro.
+      </p>
 
       <p class="sim__explain" id="simExplain"></p>
     </div>
@@ -297,6 +377,10 @@
     </p>
     <figure class="formula" data-katex="\underbrace{6\times5}_{\text{incógnitas}}-\underbrace{(6+5-1)}_{\text{restrições}}=30-10=20\;\text{graus de liberdade}">
       <figcaption class="formula__cap mono">a falácia ecológica (Robinson, 1950): o caminho de cada voto não é recuperável só dos totais</figcaption>
+      <p class="formula__plain">
+        <b>Em português:</b> há mais perguntas sem resposta (30) do que pistas nos totais (10).
+        Faltam informações — por isso ninguém consegue reconstruir, só dos totais, para onde foi cada voto.
+      </p>
     </figure>
     <p class="test__read">
       Por isso nenhuma “conta de padaria” sobre o destino dos votos se sustenta. O que se pode testar é

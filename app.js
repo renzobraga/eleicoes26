@@ -154,7 +154,7 @@
      usado pelo Teste 1 (último dígito) e Teste 2 (Benford)
      ============================================================ */
   function digitChart(mount, cfg) {
-    const W = 340, H = 210, padL = 16, padR = 8, padT = 14, padB = 24;
+    const W = 340, H = 224, padL = 16, padR = 8, padT = 14, padB = 38;
     const plotW = W - padL - padR, plotH = H - padT - padB;
     const baseY = padT + plotH;
     const obs = cfg.observed, exp = cfg.expected; // exp: array[10]
@@ -190,6 +190,12 @@
       .attr("y", baseY + 15)
       .attr("text-anchor", "middle")
       .text((d, i) => i);
+
+    // título do eixo x
+    svg.append("text").attr("class", "axis-title")
+      .attr("x", padL + plotW / 2).attr("y", H - 6)
+      .attr("text-anchor", "middle")
+      .text(cfg.xTitle || "");
 
     // linha esperada
     const line = d3.line().x((d, i) => x(i)).y((d) => y(d));
@@ -246,6 +252,7 @@
         `χ² <b>${fmtDec(c.chi2, 2)}</b> · p <b>${fmtDec(c.p, 4)}</b>`);
       digitChart(plot, {
         observed: c.observado, expected: expArr, color,
+        xTitle: "último dígito da contagem (0–9)",
         ariaLabel: `Último dígito das seções de ${nome}: distribuição plana, χ² ${c.chi2}, p ${c.p}`
       });
       vgrid.appendChild(verdictChip(nome, color, `χ²=${fmtDec(c.chi2,2)} · p=${fmtDec(c.p,4)}`, c.veredito, "pass"));
@@ -266,6 +273,7 @@
         `χ² <b>${fmtInt(c.chi2)}</b> · p <b>≈ 0</b>`);
       digitChart(plot, {
         observed: c.observado, expected: c.esperado, color,
+        xTitle: "2º dígito da contagem (0–9)",
         ariaLabel: `Benford 2º dígito de ${nome}: observado desvia do esperado, χ² ${c.chi2}`
       });
       vgrid.appendChild(verdictChip(nome, color, `χ²=${fmtInt(c.chi2)} · p≈0`, c.veredito, "fail"));
@@ -382,7 +390,7 @@
     // histograma
     const mount = $("#fpHistogram");
     const data = t.hist, bins = t.hist_bins;
-    const W = 720, H = 300, padL = 16, padR = 12, padT = 16, padB = 46;
+    const W = 720, H = 320, padL = 16, padR = 12, padT = 16, padB = 64;
     const plotW = W - padL - padR, plotH = H - padT - padB, baseY = padT + plotH;
     const max = d3.max(data) * 1.05;
     const step = plotW / data.length, bw = step * 0.78;
@@ -401,12 +409,25 @@
       .attr("y", (d) => y(d)).attr("height", (d) => baseY - y(d)).attr("rx", 1.5);
 
     // rótulos de faixa (só alguns, para não poluir no mobile)
-    svg.selectAll("text").data(bins).enter().append("text")
+    svg.selectAll("text.axis-text").data(bins).enter().append("text")
       .attr("class", "axis-text")
       .attr("x", (d, i) => x(i)).attr("y", baseY + 16)
       .attr("text-anchor", "end")
       .attr("transform", (d, i) => `rotate(-45 ${x(i)} ${baseY + 16})`)
-      .text((d, i) => (i % 2 === 0 ? d.split("–")[0] : ""));
+      .text((d, i) => (i % 2 === 0 ? d.split("–")[0] + "%" : ""));
+
+    // título do eixo x
+    svg.append("text").attr("class", "axis-title")
+      .attr("x", padL + plotW / 2).attr("y", H - 8)
+      .attr("text-anchor", "middle")
+      .text("% dos votos que o vencedor teve na seção →");
+
+    // rótulo da zona suspeita (flutua no topo direito, sobre a barra laranja)
+    svg.append("text").attr("class", "axis-title")
+      .attr("x", W - padR).attr("y", padT + 10)
+      .attr("text-anchor", "end").attr("fill", "var(--amber)")
+      .style("font-size", "10px")
+      .text("↓ zona suspeita (perto de 100%): vazia");
 
     const drawn = { v: false };
     function draw() {
