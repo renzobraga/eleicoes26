@@ -1,0 +1,16 @@
+# análise local (dados do TSE e saídas)
+data/
+out/
+*.csv
+*.zip
+
+# ferramentas de skills instaladas localmente (não fazem parte do site)
+.agents/
+.claude/
+skills-lock.json
+
+# sistema
+.DS_Store
+node_modules/
+__pycache__/
+*.pyc

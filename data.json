@@ -1,0 +1,94 @@
+{
+  "meta": {
+    "titulo": "A Conta da Virada",
+    "turno": 2,
+    "cargo": "Presidente",
+    "data_eleicao": "2026-10-25",
+    "n_secoes": 499000,
+    "fonte_arquivo": "votacao_secao_2026_BR.zip",
+    "observacao": "Totais somados a partir das seções batem exatamente com os totais oficiais do TSE."
+  },
+  "resultado": {
+    "lula":   { "nome": "Lula",   "partido": "PT", "votos": 64256232, "pct_validos": 51.79 },
+    "flavio": { "nome": "Flávio", "partido": "PL", "votos": 59826041, "pct_validos": 48.21 },
+    "brancos": 1430496,
+    "nulos": 2723305,
+    "comparecimento": 128236074,
+    "abstencao": 30509005,
+    "aptos": 158745502,
+    "diferenca": 4430191
+  },
+  "virada": {
+    "lula_t1": 53879538,
+    "lula_t2": 64256232,
+    "ganho": 10376694,
+    "pontos_voto_a_voto": 2.8,
+    "estoque_total": 14098232,
+    "estoque": [
+      { "rotulo": "Votos de candidatos eliminados no 1º turno", "valor": 9316747 },
+      { "rotulo": "Aumento de comparecimento entre turnos",      "valor": 2960239 },
+      { "rotulo": "Queda de votos brancos e nulos",              "valor": 1821246 }
+    ],
+    "share_lula_no_estoque": 73.6,
+    "transferencia": [
+      { "origem": "Eleitores de Cury",         "lula": 48, "flavio": 33, "outros": 19 },
+      { "origem": "Eleitores de Caiado",        "lula": 21, "flavio": 57, "outros": 22 },
+      { "origem": "Eleitores de Renan Santos",  "lula": 15, "flavio": 51, "outros": 34 }
+    ],
+    "transferencia_fonte": "Quaest, 17–20/out/2026"
+  },
+  "teste_ultimo_digito": {
+    "titulo": "Teste do último dígito",
+    "descricao": "Numa apuração honesta, o último dígito da contagem de cada seção é ~Uniforme(0–9). Teste qui-quadrado (9 g.l.), com Eᵢ = n/10. Só seções com ≥10 votos.",
+    "digitos": [0,1,2,3,4,5,6,7,8,9],
+    "lula":   { "chi2": 4.98,  "dof": 9, "p": 0.8364, "veredito": "PASSA",
+                "observado": [50046,49661,49824,49825,49899,49830,49919,49904,49824,50284], "esperado_const": 49902 },
+    "flavio": { "chi2": 12.36, "dof": 9, "p": 0.1936, "veredito": "PASSA",
+                "observado": [49741,49562,49625,50183,49563,49745,49783,49656,49606,49123], "esperado_const": 49659 }
+  },
+  "teste_benford": {
+    "titulo": "Lei de Benford — 2º dígito",
+    "descricao": "Distribuição esperada P(d) = Σ_{k=1}^{9} log10(1 + 1/(10k+d)). Teste qui-quadrado.",
+    "digitos": [0,1,2,3,4,5,6,7,8,9],
+    "lula":   { "chi2": 10742, "p": 0, "veredito": "REPROVA",
+                "observado": [53721,51635,48005,45376,44625,46050,48688,51509,54234,55173],
+                "esperado":  [59722,56833,54304,52062,50055,48244,46596,45087,43699,42415] },
+    "flavio": { "chi2": 8067, "p": 0, "veredito": "REPROVA",
+                "observado": [42756,49052,52527,55407,55782,53350,51033,47985,45040,43655],
+                "esperado":  [59431,56556,54039,51809,49812,48009,46369,44868,43486,42209] }
+  },
+  "teste_fingerprint": {
+    "titulo": "Fingerprint — enchimento de urna",
+    "descricao": "Método estilo Klimek et al. (PNAS 2012). Enchimento produziria correlação positiva forte entre tamanho da seção e % do vencedor, e um pico anômalo perto de 100%.",
+    "correlacao": -0.18,
+    "media_share_vencedor": 62.1,
+    "mediana_share_vencedor": 61,
+    "secoes_ge_95": 880,
+    "secoes_ge_99": 64,
+    "secoes_100": 30,
+    "hist_bins": ["30–35","35–40","40–45","45–50","50–55","55–60","60–65","65–70","70–75","75–80","80–85","85–90","90–95","95–100"],
+    "hist": [0,0,11,36781,110098,98350,82832,62173,45546,31517,18243,9147,3627,880]
+  },
+  "truque_190": {
+    "surpresa_pontos": 2.79,
+    "pesquisa_final": { "flavio": 51, "lula": 49, "fonte": "Datafolha e Quaest, 23–24/out/2026" },
+    "fontes_erro": [
+      { "rotulo": "Erro amostral",          "sigma": 0.8  },
+      { "rotulo": "Efeito de desenho",       "sigma": 1.1  },
+      { "rotulo": "Viés de casa",            "sigma": 1.5  },
+      { "rotulo": "Mudança de voto tardia",  "sigma": 1.75 }
+    ],
+    "sigma_total": 2.68,
+    "z_correto": 1.04,
+    "p_correto": 0.30,
+    "sigma_ingenuo": 0.8
+  },
+  "inferencia_ecologica": {
+    "origens": 6,
+    "destinos": 5,
+    "incognitas": 30,
+    "restricoes": 10,
+    "graus_liberdade": 20,
+    "referencia": "Falácia ecológica, W. S. Robinson (1950)"
+  }
+}
