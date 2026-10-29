@@ -570,6 +570,24 @@
   }
 
   /* ============================================================
+     CONTADOR DE ACESSOS (função serverless /api/hit)
+     Conta 1 vez por IP por dia. Some sem quebrar nada se desativado.
+     ============================================================ */
+  function initCounter() {
+    const box = $("#counterBox");
+    const num = $("#visitCount");
+    if (!box || !num) return;
+    fetch("/api/hit", { method: "POST", headers: { "Content-Type": "application/json" } })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (!d || !d.enabled || typeof d.total !== "number") return; // permanece oculto
+        box.hidden = false;
+        countUp(num, d.total, { dur: 1400 });
+      })
+      .catch(() => { /* offline/local: contador fica oculto */ });
+  }
+
+  /* ============================================================
      FÓRMULAS (KaTeX)
      ============================================================ */
   function renderFormulas() {
@@ -623,6 +641,7 @@
     buildVariance(d);
     buildProcess();
     loadCode();
+    initCounter();
     initReveal();
     initStamps();
     if (hasST) ScrollTrigger.refresh();

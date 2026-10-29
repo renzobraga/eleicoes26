@@ -66,6 +66,33 @@ vercel --prod
 
 ---
 
+## Contador de acessos (opcional)
+
+A pasta `api/hit.js` é uma função serverless que conta **visitantes únicos por
+dia**: recarregar a página no mesmo dia (mesmo IP) não conta de novo; acessar
+em outro dia conta +1.
+
+Privacidade (LGPD): **o IP cru nunca é armazenado**. Guardamos só um hash
+SHA-256 (com sal) com validade de 48h, para deduplicar o dia, e um contador
+agregado (um inteiro). O contador só aparece no site quando está configurado;
+sem configuração, ele fica escondido e nada quebra.
+
+Precisa de um Redis (plano grátis). Passo a passo na Vercel:
+
+1. No projeto, aba **Storage → Create Database → Upstash for Redis** (ou **KV**).
+   Escolha o plano **Free**.
+2. Clique em **Connect Project** e conecte ao `eleicoes26`. Isso injeta as
+   variáveis de ambiente automaticamente (`UPSTASH_REDIS_REST_URL` /
+   `UPSTASH_REDIS_REST_TOKEN`, ou `KV_REST_API_URL` / `KV_REST_API_TOKEN` — a
+   função aceita os dois padrões).
+3. (Opcional) em **Settings → Environment Variables**, adicione `COUNTER_SALT`
+   com um valor aleatório qualquer.
+4. **Redeploy** (Deployments → ⋯ → Redeploy) para a função ler as variáveis.
+
+Para zerar o contador, apague a chave `acv:total` no console do Upstash.
+
+---
+
 ## Reproduzir os números da análise
 
 Qualquer pessoa baixa o mesmo arquivo do TSE e reproduz exatamente os
