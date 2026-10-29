@@ -23,6 +23,12 @@
 <!-- progress bar -->
 <div class="progress" aria-hidden="true"><span class="progress__bar" id="progressBar"></span></div>
 
+<!-- contador de acessos (fixo no topo, acompanha o scroll) -->
+<div class="hitcounter" id="counterBox" hidden aria-live="polite" title="Acessos ao site">
+  <span class="hitcounter__num mono" id="visitCount">0</span>
+  <span class="hitcounter__lbl mono">acessos</span>
+</div>
+
 <!-- theme toggle -->
 <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Alternar tema claro e escuro">
   <span class="theme-toggle__dot" aria-hidden="true"></span>
@@ -493,14 +499,6 @@
       Análise independente, feita com dados abertos oficiais. Sem vínculo com o TSE, partidos ou candidatos.
       Os números batem exatamente com os totais oficiais do TSE — primeiro atestado de integridade do arquivo.
     </p>
-
-    <div class="footer__counter" id="counterBox" hidden>
-      <span class="footer__counter-num mono" id="visitCount">0</span>
-      <span class="footer__counter-lbl mono">
-        acessos · contados 1 vez por IP a cada dia
-        <span class="footer__counter-hint" title="Não guardamos o IP: apenas um hash com validade de 48h para não contar a mesma pessoa duas vezes no mesmo dia.">· como funciona</span>
-      </span>
-    </div>
 
     <p class="footer__sign mono">A CONTA DA VIRADA · 2026</p>
   </div>
